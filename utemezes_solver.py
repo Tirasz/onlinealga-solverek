@@ -6,10 +6,11 @@ class Gep:
     def __init__(self) -> None:
         self.munkak = []
         self.toltes = 0
+        self.sebesseg = 1
     
     def utemez(self, munka, toltes):
         self.munkak.append(munka)
-        self.toltes += toltes
+        self.toltes += toltes/self.sebesseg
 
     def getToltes(self):
         return self.toltes
@@ -38,26 +39,39 @@ def lista_fuggetlen(m, input):
     for g in gepek:
         print(f"{gepek.index(g)}. gep: {g.munkak}, toltes: {g.getToltes()}")
 
-def getMingep(gepek):
+def getMingep(gepek, j):
     mintoltes = gepek[0].getToltes()
     for g in gepek:
         if g.getToltes() < mintoltes:
             return g
-    return gepek[0]
+    
+    #return gepek[0]
 
-def lista_osszefuggo(m, input):
+def lista_osszefuggo(m, input, sebessegek = []):
     #rakjuk a legkisebb toltesu gepre az aktualis munkat
+    # init gepek
     gepek = [Gep() for _ in range(m)]
-    mingep = gepek[0]
+    if len(sebessegek) != 0:
+        for v in sebessegek:
+            gepek[sebessegek.index(v)].sebesseg = v
+    # az elso job fixen a leggyorsabb gepre kerul
+    
+    minimum = 100000
     for j in input:
+        mingep = Gep()
+        minimum = 100000
+        for g in gepek:
+            if g.getToltes() + j/g.sebesseg < minimum:
+                mingep = g
+                minimum = mingep.getToltes() + j/mingep.sebesseg
+                print(f"mingep: {g.toltes}, minimum: {minimum}")
         mingep.utemez(j, j)
-        mingep = getMingep(gepek)
     
     for g in gepek:
         print(f"{gepek.index(g)}. gep munkai: {g.munkak},\ttoltese: {g.getToltes()}")
 
 
 
-#lista_fuggetlen(3, input=[(1,2,3), (5,2,2), (4,5,4), (4,2,1)])
-lista_osszefuggo(3, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+#lista_fuggetlen(2, input=[(1,4), (2, 4), (2, 4), (3, 1), (2, 1) ])
+lista_osszefuggo(3, [6, 6, 6, 12, 24, 18, 12], [1,2,3])
 
