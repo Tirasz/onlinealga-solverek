@@ -16,10 +16,13 @@ def column(matrix, i):
 
 def egyenlotlenseg(vektor):
     e = ""
+    i = 1
+    #print(vektor)
     for c in vektor:
-        e += f"{c}p{vektor.index(c)+1}"
-        if c != vektor[-1]:
+        e += f"{c}p{i}"
+        if i != len(vektor):
             e += "+"
+        i+=1
     return e
 
 def korlatok(C):
