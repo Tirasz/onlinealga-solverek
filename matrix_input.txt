@@ -1,0 +1,4 @@
+nyeregpont(0)/egyensuly(1)/jatekertek(2): 1
+1 2 3
+4 3 5
+2 3 4
