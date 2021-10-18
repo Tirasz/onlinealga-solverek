@@ -73,5 +73,6 @@ def lista_osszefuggo(m, input, sebessegek = []):
 
 
 #lista_fuggetlen(2, input=[(1,4), (2, 4), (2, 4), (3, 1), (2, 1) ])
+#lista_osszefuggo(3, [6, 6, 6, 12, 24, 18, 12], [1,2,3])
 lista_osszefuggo(3, [6, 6, 6, 12, 24, 18, 12], [1,2,3])
 

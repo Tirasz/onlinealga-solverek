@@ -29,7 +29,7 @@ opt=0
 for i in range(len(input_arr)):
     out=0
     out_key=0
-    if len(cache)<k:
+    if len(cache)<k and input_arr[i] not in cache:
         pass
         opt+=1
     elif input_arr[i] not in cache:
