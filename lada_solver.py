@@ -2,9 +2,11 @@
 import math
 
 class Machine:
-    def __init__(self) -> None:
+    def __init__(self, category = 0) -> None:
         self.jobs = []
         self.load = 0
+        self.category = category
+        self.open = True
     
     def add(self, job):
         self.jobs.append(job)
@@ -118,13 +120,35 @@ def nextFitShelf(r, input):
     
     return shelves
                 
+def harmonicFit(input, k):
+    
+    bounds = [(1/i, 1/(i+1)) for i in range(1, k)]
+    bounds.append((1/k, 0))
+    machines = [Machine(category) for category in bounds]
+    for job in input:
+        c = list(filter(lambda x: job<=x[0] and job>x[1], bounds))[0]
+        currMachine = list(filter(lambda x: x.category == c and x.open == True, machines))[0]
+        if(1-currMachine.load >= job):
+            currMachine.add(job)
+        else:
+            currMachine.open = False
+            newMachine = Machine(c)
+            newMachine.add(job)
+            machines.append(newMachine)
+    
+    return machines
+
 
 # scheduling = nextFit([0.5, 0.6, 0.3, 0.4, 0.2, 0.5, 0.4])
 # print(len(scheduling))
 # for m in scheduling:
 #     print(m.jobs)
 
-scheduling = nextFitShelf(0.5, [(0.4,0.6), (0.6, 0.6), (0.5,0.4), (0.5,0.3), (0.7,0.1), (0.2, 0.1)])
-print(len(scheduling))
-for s in scheduling:
-    print(f"{s.jobs}, {s.height}")
+# scheduling = nextFitShelf(0.5, [(0.4,0.6), (0.6, 0.6), (0.5,0.4), (0.5,0.3), (0.7,0.1), (0.2, 0.1)])
+# print(len(scheduling))
+# for s in scheduling:
+#     print(f"{s.jobs}, {s.height}")
+
+res = harmonicFit([0.4, 0.2, 0.3, 0.6, 0.4, 0.4, 0.2, 0.3], 4)
+for m in res:
+    print(f"{m.jobs}, category={m.category}")
