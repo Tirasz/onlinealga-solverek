@@ -179,6 +179,15 @@ def INTV_LPT(input, m):
     if(len(collect) != 0):
         ret[nextEmptyAt] = lpt(collect, m)
 
+    fullMakespan = 0
+    for t in ret.keys():
+        print(f"{t}. időpillanat:")
+        for idx, m in enumerate(ret[t]):
+            print(f"{idx+1}. gép: {m}")
+        fullMakespan += makespan(ret[t])
+
+    print(f"\naz ütemezése makespan-je: {fullMakespan}")
+    print(f"INTV+LPT 8/3 versenyképes, így erre az inputra opt <= {round(3*fullMakespan/8, 2)}")
     return ret
 
 
@@ -188,16 +197,9 @@ def INTV_LPT(input, m):
 
 input = [(1, 0), (1, 0), (2, 0), (3, 0), (2, 1), (2, 2), (3, 2), (1, 3), (2, 4), (1, 5)]
 
-result = INTV_LPT(input, 3)
+INTV_LPT(input, 3)
 
-fullMakespan = 0
-for t in result.keys():
-    print(f"{t}. időpillanat:")
-    for idx, m in enumerate(result[t]):
-        print(f"{idx+1}. gép: {m}")
-    #fullMakespan += makespan(result[t])
 
-print(f"\n\naz ütemezése makespan-je: {fullMakespan}")
 
 
 
