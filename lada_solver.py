@@ -130,11 +130,13 @@ def harmonicFit(input, k):
         currMachine = list(filter(lambda x: x.category == c and x.open == True, machines))[0]
         if(1-currMachine.load >= job):
             currMachine.add(job)
+            print(f"Job: {job}, ütemezés után (láda tartalma, mérete): ({currMachine.jobs} {currMachine.category})")
         else:
             currMachine.open = False
             newMachine = Machine(c)
             newMachine.add(job)
             machines.append(newMachine)
+            print(f"Job: {job}, nyitunk egy újat, ide ütemezzük: {newMachine.jobs} {newMachine.category}")
     for m in machines:
         print(f"{m.jobs}, méret={m.category}")
     print(f"Az algoritmus {len(machines)} darab gépet használ, a Harmonic(k) aszimptotikusan legfeljebb 1.69103 versenyképes, tehát opt <= {math.ceil(len(machines)/1.69103)}")
@@ -151,6 +153,6 @@ def harmonicFit(input, k):
 # for s in scheduling:
 #     print(f"{s.jobs}, {s.height}")
 
-harmonicFit([0.4, 0.2, 0.3, 0.6, 0.4, 0.4, 0.2, 0.3], 4)
+harmonicFit([0.3, 0.4, 0.4, 0.5, 0.1, 0.3, 0.3, 0.5, 0.6, 0.6], 4)
 
     
